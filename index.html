@@ -1,0 +1,4179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cruzinha Variedades</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    html, body{
+      overflow-x:hidden;
+    }
+
+    body{
+      font-family:"Poppins", sans-serif;
+      background:#f8f6f6;
+      color:#2b2b2b;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    img{
+      display:block;
+      max-width:100%;
+    }
+
+    button,
+    input,
+    textarea,
+    select{
+      font-family:inherit;
+    }
+
+    .site{
+      min-height:100vh;
+      background:#f8f6f6;
+    }
+
+    .container{
+      width:100%;
+      max-width:1240px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.34);
+      opacity:0;
+      visibility:hidden;
+      transition:0.3s;
+      z-index:180;
+    }
+
+    .overlay.ativo{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .link-minha-conta{
+      display:block;
+      padding:6px 0;
+      color:#666;
+      font-size:15px;
+    }
+
+    .link-minha-conta:hover{
+      color:#d96a72;
+    }
+
+    /* MOBILE HEADER */
+    .topo-mobile{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:#f3efef;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .topo-mobile .container{
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .menu-btn,
+    .carrinho-btn{
+      width:44px;
+      height:44px;
+      border:none;
+      background:transparent;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      cursor:pointer;
+      flex-shrink:0;
+      color:#333;
+    }
+
+    .menu-btn i,
+    .carrinho-btn i{
+      font-size:22px;
+    }
+
+    .logo{
+      text-align:center;
+      line-height:1;
+      flex:1;
+    }
+
+    .logo h1{
+      font-family:"Playfair Display", serif;
+      font-size:24px;
+      color:#2b1d1d;
+      font-weight:700;
+    }
+
+    .logo p{
+      margin-top:5px;
+      font-size:10px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#796e6e;
+    }
+
+    .logo-link,
+    .logo-desktop-link{
+      display:inline-block;
+    }
+
+    .contador{
+      position:absolute;
+      top:2px;
+      right:-2px;
+      min-width:22px;
+      height:22px;
+      border-radius:50%;
+      background:#d96a72;
+      color:#fff;
+      font-size:12px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 6px;
+    }
+
+    /* DESKTOP HEADER */
+    .topo-desktop{
+      display:none;
+      background:#fbf8f8;
+      border-bottom:1px solid #eee4e4;
+      position:sticky;
+      top:0;
+      z-index:110;
+    }
+
+    .topo-desktop-superior{
+      border-bottom:1px solid #f0e8e8;
+    }
+
+    .topo-desktop-superior .container{
+      min-height:92px;
+      display:grid;
+      grid-template-columns:220px 1fr 360px 70px;
+      align-items:center;
+      gap:20px;
+    }
+
+    .logo-desktop{
+      line-height:1;
+    }
+
+    .logo-desktop h1{
+      font-family:"Playfair Display", serif;
+      font-size:34px;
+      color:#2b1d1d;
+    }
+
+    .logo-desktop p{
+      font-size:11px;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#8a7a7a;
+      margin-top:6px;
+    }
+
+    .busca{
+      width:100%;
+      position:relative;
+    }
+
+    .busca input{
+      width:100%;
+      height:54px;
+      border:1px solid #eadede;
+      border-radius:14px;
+      outline:none;
+      padding:0 54px 0 20px;
+      background:#fff;
+      font-size:15px;
+    }
+
+    .busca button{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform:translateY(-50%);
+      width:40px;
+      height:40px;
+      border:none;
+      background:transparent;
+      font-size:18px;
+      color:#c96b77;
+      cursor:pointer;
+    }
+
+    .acoes-desktop{
+      display:flex;
+      justify-content:flex-end;
+      gap:28px;
+      align-items:center;
+    }
+
+    .acao-dropdown{
+      position:relative;
+    }
+
+    .acao-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#7d6969;
+      font-size:14px;
+      white-space:nowrap;
+      cursor:pointer;
+      padding:8px 0;
+    }
+
+    .acao-item strong{
+      color:#d06f7a;
+      font-weight:500;
+    }
+
+    .acao-icone{
+      font-size:20px;
+      color:#444;
+      width:20px;
+      text-align:center;
+    }
+
+    .dropdown-box{
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform:translateX(-50%);
+      width:290px;
+      background:#fffdfd;
+      border:1px solid #eee3e3;
+      border-radius:16px;
+      box-shadow:0 14px 30px rgba(0,0,0,0.10);
+      padding:18px;
+      opacity:0;
+      visibility:hidden;
+      transition:0.2s;
+      z-index:150;
+    }
+
+    .acao-dropdown:hover .dropdown-box{
+      opacity:1;
+      visibility:visible;
+      margin-top:8px;
+    }
+
+    .dropdown-box p,
+    .dropdown-box a,
+    .dropdown-box div{
+      font-size:14px;
+      color:#5f5f5f;
+      line-height:1.6;
+    }
+
+    .dropdown-box .titulo-drop{
+      font-size:15px;
+      font-weight:700;
+      color:#2f2f2f;
+      margin-bottom:8px;
+    }
+
+    .drop-contato-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .drop-contato-item i{
+      color:#d96a72;
+      margin-top:4px;
+      width:16px;
+      text-align:center;
+    }
+
+    .botao-entrar{
+      display:block;
+      width:100%;
+      text-align:center;
+      background:linear-gradient(135deg, #ef8da5, #e46887);
+      color:#fff;
+      padding:12px;
+      border-radius:10px;
+      font-weight:700;
+      margin:14px 0 8px;
+      border:none;
+      cursor:pointer;
+    }
+
+    .cadastro-link{
+      text-align:center;
+      display:block;
+      color:#b98a92;
+      font-size:13px;
+    }
+
+    .carrinho-desktop{
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    .carrinho-btn-desktop{
+      width:48px;
+      height:48px;
+      border:none;
+      background:transparent;
+      position:relative;
+      cursor:pointer;
+      color:#333;
+    }
+
+    .carrinho-btn-desktop i{
+      font-size:25px;
+    }
+
+    .menu-categorias{
+      background:#f8f4f4;
+      border-bottom:1px solid #eee4e4;
+    }
+
+    .menu-categorias .container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      min-height:58px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+
+    .menu-categorias .container::-webkit-scrollbar{
+      display:none;
+    }
+
+    .menu-categorias a{
+      font-size:13px;
+      color:#5f5f5f;
+      white-space:nowrap;
+      text-align:center;
+      line-height:1.2;
+      transition:0.2s;
+    }
+
+    .menu-categorias a:hover{
+      color:#b56a74;
+    }
+
+    /* MENU LATERAL */
+    .menu-lateral{
+      position:fixed;
+      top:0;
+      left:-310px;
+      width:280px;
+      height:100%;
+      background:#fff;
+      z-index:200;
+      transition:0.3s;
+      box-shadow:8px 0 30px rgba(0,0,0,0.12);
+      padding:24px 20px;
+    }
+
+    .menu-lateral.ativo{
+      left:0;
+    }
+
+    .menu-topo{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:24px;
+    }
+
+    .menu-topo h2{
+      font-size:22px;
+    }
+
+    .fechar-menu{
+      width:38px;
+      height:38px;
+      border:none;
+      border-radius:50%;
+      background:#f3f3f3;
+      font-size:18px;
+      cursor:pointer;
+    }
+
+    .menu-links{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .menu-links a{
+      padding:14px 16px;
+      border-radius:14px;
+      background:#faf7f7;
+      border:1px solid #eee5e5;
+      font-weight:500;
+    }
+
+    /* CARRINHO LATERAL */
+    .painel-carrinho{
+      position:fixed;
+      top:0;
+      right:-420px;
+      width:380px;
+      max-width:100%;
+      height:100%;
+      background:#fff;
+      z-index:210;
+      transition:0.3s;
+      box-shadow:-8px 0 30px rgba(0,0,0,0.12);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .painel-carrinho.ativo{
+      right:0;
+    }
+
+    .carrinho-header{
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      color:#fff;
+      padding:22px 20px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      font-size:20px;
+    }
+
+    .carrinho-header .fechar-carrinho-topo{
+      background:transparent;
+      color:#fff;
+      border:none;
+      font-size:24px;
+      cursor:pointer;
+    }
+
+    .carrinho-corpo{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      padding:20px;
+      overflow:auto;
+    }
+
+    .carrinho-vazio{
+      margin:auto;
+      text-align:center;
+      color:#666;
+    }
+
+    .icone-carrinho-vazio{
+      font-size:52px;
+      margin-bottom:14px;
+      color:#7a7a7a;
+    }
+
+    .texto-carrinho{
+      font-size:24px;
+      margin-bottom:16px;
+      color:#555;
+    }
+
+    .btn-fechar-carrinho{
+      display:inline-block;
+      border:1px solid #cfd6dc;
+      color:#5b6770;
+      background:#fff;
+      border-radius:10px;
+      padding:10px 16px;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    .lista-carrinho{
+      display:grid;
+      gap:14px;
+    }
+
+    .item-carrinho{
+      display:grid;
+      grid-template-columns:72px 1fr auto;
+      gap:12px;
+      align-items:center;
+      border:1px solid #eee3e3;
+      border-radius:16px;
+      padding:10px;
+      background:#fff;
+    }
+
+    .item-carrinho img{
+      width:72px;
+      height:72px;
+      object-fit:cover;
+      border-radius:12px;
+      background:#faf7f7;
+    }
+
+    .item-carrinho-info h4{
+      font-size:14px;
+      line-height:1.4;
+      margin-bottom:6px;
+      color:#333;
+    }
+
+    .item-carrinho-info p{
+      font-size:14px;
+      color:#d76b78;
+      font-weight:700;
+    }
+
+    .item-carrinho-info small{
+      display:block;
+      color:#666;
+      margin-top:4px;
+    }
+
+    .remover-item{
+      border:none;
+      background:#fbeef0;
+      color:#d96a72;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      cursor:pointer;
+    }
+
+    .rodape-carrinho{
+      border-top:1px solid #eee3e3;
+      padding:16px 20px 20px;
+      background:#fff;
+    }
+
+    .total-carrinho{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:16px;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+
+    .botao-finalizar{
+      width:100%;
+      border:none;
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      color:#fff;
+      padding:14px;
+      border-radius:12px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* HERO */
+    .hero{
+      padding:18px 0 10px;
+    }
+
+    .banner{
+      position:relative;
+      height:320px;
+      border-radius:22px;
+      overflow:hidden;
+      background:#ddcdc5;
+      box-shadow:0 16px 40px rgba(0,0,0,0.08);
+    }
+
+    .slides{
+      width:300%;
+      height:100%;
+      display:flex;
+      transition:transform 0.5s ease;
+    }
+
+    .slide{
+      width:100%;
+      height:100%;
+      position:relative;
+      flex-shrink:0;
+    }
+
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:0.52;
+    }
+
+    .slide::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to right, rgba(0,0,0,0.30), rgba(0,0,0,0.10));
+    }
+
+    .slide-conteudo{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:20px;
+      color:#fff;
+    }
+
+    .tag{
+      display:inline-block;
+      width:fit-content;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.18);
+      border:1px solid rgba(255,255,255,0.28);
+      backdrop-filter:blur(5px);
+      font-size:12px;
+      margin-bottom:16px;
+    }
+
+    .slide-conteudo h2{
+      font-family:"Playfair Display", serif;
+      font-size:30px;
+      line-height:1.08;
+      max-width:240px;
+      margin-bottom:12px;
+    }
+
+    .slide-conteudo p{
+      font-size:14px;
+      line-height:1.5;
+      max-width:250px;
+      margin-bottom:18px;
+    }
+
+    .botoes-banner{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:11px 16px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .btn-principal{
+      background:#d97c7e;
+      color:#fff;
+      box-shadow:0 10px 25px rgba(217,124,126,0.35);
+    }
+
+    .btn-secundario{
+      background:rgba(255,255,255,0.18);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.3);
+    }
+
+    .bolinhas-banner{
+      position:absolute;
+      left:50%;
+      bottom:16px;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      z-index:3;
+    }
+
+    .indicador{
+      width:9px;
+      height:9px;
+      border:none;
+      border-radius:50%;
+      background:#f6b9c2;
+      cursor:pointer;
+    }
+
+    .indicador.ativo{
+      width:24px;
+      border-radius:999px;
+      background:#d96a72;
+    }
+
+    .preco-destaque{
+      display:none;
+    }
+
+    /* BENEFÍCIOS */
+    .faixa-beneficios{
+      padding:18px 0 8px;
+    }
+
+    .beneficios-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .beneficio-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:14px;
+      background:#fff;
+      border:1px solid #eee5e5;
+      border-radius:18px;
+    }
+
+    .beneficio-item i{
+      color:#d96a72;
+      font-size:23px;
+      width:24px;
+      text-align:center;
+      margin-top:2px;
+    }
+
+    .beneficio-item strong{
+      display:block;
+      font-size:14px;
+      color:#333;
+    }
+
+    .beneficio-item span{
+      display:block;
+      font-size:13px;
+      color:#666;
+      margin-top:2px;
+      line-height:1.4;
+    }
+
+    /* CATEGORIAS */
+    .categorias{
+      padding:24px 0;
+    }
+
+    .categorias h2{
+      text-align:center;
+      font-size:26px;
+      margin-bottom:20px;
+      color:#343434;
+    }
+
+    .categorias-wrapper{
+      position:relative;
+    }
+
+    .categorias-scroll{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      scroll-snap-type:x mandatory;
+      padding:8px 4px 12px;
+      scrollbar-width:none;
+    }
+
+    .categorias-scroll::-webkit-scrollbar{
+      display:none;
+    }
+
+    .categoria-card{
+      min-width:132px;
+      flex:0 0 132px;
+      text-align:center;
+      scroll-snap-align:start;
+    }
+
+    .categoria-imagem{
+      width:132px;
+      height:132px;
+      border-radius:50%;
+      overflow:hidden;
+      margin:0 auto 12px;
+      background:#f5d2da;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .categoria-imagem img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .categoria-card span{
+      font-size:14px;
+      color:#4a4a4a;
+      font-weight:500;
+    }
+
+    .seta-categoria{
+      display:none;
+    }
+
+    .pontinhos-categoria{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-top:16px;
+    }
+
+    .pontinhos-categoria span{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#efb4c0;
+    }
+
+    .pontinhos-categoria span.ativo{
+      width:22px;
+      border-radius:999px;
+      background:#d96a72;
+    }
+
+    /* PRODUTOS */
+    .kits{
+      padding:26px 0 36px;
+    }
+
+    .kits h2{
+      text-align:center;
+      font-size:24px;
+      margin-bottom:18px;
+      color:#343434;
+    }
+
+    .produtos-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .produto-card{
+      background:#fff;
+      border:1px solid #efe5e5;
+      border-radius:18px;
+      padding:12px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+      position:relative;
+      transition:0.2s;
+    }
+
+    .produto-card:hover{
+      transform:translateY(-2px);
+    }
+
+    .desconto{
+      position:absolute;
+      top:12px;
+      right:12px;
+      background:#e77480;
+      color:#fff;
+      font-size:11px;
+      font-weight:700;
+      padding:6px 8px;
+      border-radius:8px;
+    }
+
+    .produto-imagem{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:14px;
+      overflow:hidden;
+      background:#faf7f7;
+      margin-bottom:12px;
+    }
+
+    .produto-imagem img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .selos{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .selo{
+      font-size:10px;
+      background:#f9eef0;
+      color:#c76b78;
+      padding:5px 8px;
+      border-radius:999px;
+      font-weight:600;
+    }
+
+    .produto-nome{
+      font-size:13px;
+      line-height:1.45;
+      min-height:74px;
+      color:#444;
+      margin-bottom:12px;
+    }
+
+    .produto-preco{
+      font-size:20px;
+      font-weight:700;
+      color:#d76b78;
+      margin-bottom:10px;
+    }
+
+    .produto-botao{
+      display:inline-block;
+      width:100%;
+      text-align:center;
+      margin-top:10px;
+      padding:11px 12px;
+      border:none;
+      border-radius:999px;
+      background:#d97c7e;
+      color:#fff;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    /* PÁGINA DO PRODUTO */
+    .pagina-produto{
+      padding:18px 0 34px;
+    }
+
+    .breadcrumb{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      color:#8b7a7a;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+
+    .produto-voltar{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:#fff;
+      border:1px solid #eadede;
+      color:#555;
+      border-radius:999px;
+      padding:10px 16px;
+      cursor:pointer;
+      margin-bottom:18px;
+      font-weight:500;
+    }
+
+    .produto-detalhe-topo{
+      display:grid;
+      gap:22px;
+    }
+
+    .produto-galeria,
+    .produto-infos-box,
+    .produto-descricao-box,
+    .produto-opinioes-box{
+      background:#fff;
+      border:1px solid #eee5e5;
+      border-radius:24px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.03);
+    }
+
+    .produto-galeria{
+      padding:18px;
+    }
+
+    .produto-galeria-principal{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:20px;
+      overflow:hidden;
+      background:#faf7f7;
+      margin-bottom:14px;
+    }
+
+    .produto-galeria-principal img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .miniaturas{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:10px;
+    }
+
+    .miniatura{
+      border:2px solid transparent;
+      border-radius:14px;
+      overflow:hidden;
+      cursor:pointer;
+      background:#faf7f7;
+      aspect-ratio:1/1;
+    }
+
+    .miniatura.ativa{
+      border-color:#d96a72;
+    }
+
+    .miniatura img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .produto-infos-box{
+      padding:22px;
+    }
+
+    .produto-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .produto-tag{
+      background:#f9eef0;
+      color:#c76b78;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:700;
+    }
+
+    .produto-titulo{
+      font-size:28px;
+      line-height:1.2;
+      margin-bottom:12px;
+      color:#2f2f2f;
+    }
+
+    .produto-ref{
+      font-size:13px;
+      color:#8a7f7f;
+      margin-bottom:10px;
+    }
+
+    .produto-avaliacao-topo{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+      color:#666;
+      font-size:14px;
+    }
+
+    .estrelas{
+      color:#f1b94a;
+      letter-spacing:2px;
+      font-size:15px;
+    }
+
+    .produto-preco-area{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      margin-bottom:18px;
+    }
+
+    .produto-preco-antigo{
+      color:#9f9494;
+      font-size:15px;
+      text-decoration:line-through;
+    }
+
+    .produto-preco-atual{
+      font-size:34px;
+      color:#d76b78;
+      font-weight:700;
+      line-height:1;
+    }
+
+    .produto-preco-pix{
+      font-size:14px;
+      color:#666;
+    }
+
+    .kit-lista{
+      border:1px solid #eee2e2;
+      border-radius:18px;
+      overflow:hidden;
+      margin-bottom:18px;
+    }
+
+    .kit-lista-topo{
+      background:#faf5f6;
+      padding:12px 14px;
+      font-size:14px;
+      font-weight:700;
+      color:#7a6363;
+    }
+
+    .kit-item{
+      display:grid;
+      grid-template-columns:52px 1fr auto;
+      gap:12px;
+      align-items:center;
+      padding:12px 14px;
+      border-top:1px solid #f1e6e6;
+    }
+
+    .kit-item img{
+      width:52px;
+      height:52px;
+      object-fit:cover;
+      border-radius:10px;
+      background:#faf7f7;
+    }
+
+    .kit-item strong{
+      display:block;
+      font-size:14px;
+      color:#333;
+      margin-bottom:2px;
+    }
+
+    .kit-item span{
+      font-size:12px;
+      color:#7d7d7d;
+    }
+
+    .kit-item em{
+      font-style:normal;
+      font-size:13px;
+      color:#666;
+    }
+
+    .linha-controles{
+      display:grid;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .quantidade-box label,
+    .frete-box label{
+      display:block;
+      font-size:14px;
+      font-weight:600;
+      color:#444;
+      margin-bottom:8px;
+    }
+
+    .quantidade-controle{
+      display:flex;
+      align-items:center;
+      width:160px;
+      border:1px solid #e8dddd;
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .quantidade-controle button{
+      width:46px;
+      height:46px;
+      border:none;
+      background:#faf5f6;
+      font-size:20px;
+      color:#d96a72;
+      cursor:pointer;
+    }
+
+    .quantidade-controle span{
+      flex:1;
+      text-align:center;
+      font-weight:700;
+      color:#333;
+    }
+
+    .frete-linha{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .frete-linha input{
+      flex:1;
+      min-width:180px;
+      height:48px;
+      border:1px solid #e8dddd;
+      border-radius:14px;
+      padding:0 14px;
+      outline:none;
+      font-size:14px;
+      background:#fff;
+    }
+
+    .frete-linha button{
+      height:48px;
+      border:none;
+      border-radius:14px;
+      padding:0 18px;
+      background:#f2d6db;
+      color:#9f4f5f;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .frete-resultado{
+      margin-top:10px;
+      background:#faf7f7;
+      border:1px solid #eee3e3;
+      border-radius:14px;
+      padding:12px 14px;
+      font-size:14px;
+      color:#555;
+      line-height:1.6;
+    }
+
+    .produto-acoes{
+      display:grid;
+      gap:12px;
+    }
+
+    .botao-comprar-grande,
+    .botao-adicionar{
+      border:none;
+      border-radius:16px;
+      padding:15px 18px;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .botao-comprar-grande{
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      color:#fff;
+    }
+
+    .botao-adicionar{
+      background:#fff;
+      border:1px solid #eadede;
+      color:#666;
+    }
+
+    .produto-descricao-box,
+    .produto-opinioes-box{
+      padding:22px;
+      margin-top:20px;
+    }
+
+    .titulo-box{
+      font-size:22px;
+      color:#333;
+      margin-bottom:14px;
+    }
+
+    .descricao-texto{
+      font-size:15px;
+      line-height:1.8;
+      color:#555;
+    }
+
+    .descricao-lista{
+      margin-top:14px;
+      display:grid;
+      gap:10px;
+    }
+
+    .descricao-lista li{
+      margin-left:18px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .opinioes-resumo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      padding-bottom:16px;
+      border-bottom:1px solid #f0e6e6;
+      margin-bottom:16px;
+    }
+
+    .opinioes-nota{
+      font-size:40px;
+      color:#d76b78;
+      font-weight:700;
+      line-height:1;
+    }
+
+    .opinioes-total{
+      color:#666;
+      font-size:14px;
+    }
+
+    .opinioes-grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .opiniao-card{
+      border:1px solid #eee5e5;
+      border-radius:18px;
+      padding:16px;
+      background:#fff;
+    }
+
+    .opiniao-topo{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      margin-bottom:8px;
+    }
+
+    .opiniao-topo strong{
+      font-size:15px;
+      color:#333;
+    }
+
+    .opiniao-topo span{
+      font-size:13px;
+      color:#8b8b8b;
+    }
+
+    .opiniao-estrelas{
+      color:#f1b94a;
+      font-size:14px;
+      letter-spacing:2px;
+      margin-bottom:8px;
+    }
+
+    .opiniao-texto{
+      font-size:14px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    /* CHECKOUT E PÁGINAS */
+    .checkout-page,
+    .identificacao-page,
+    .minha-conta-page,
+    .meus-pedidos-page{
+      padding:24px 0 40px;
+    }
+
+    .checkout-top-actions{
+      display:grid;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .checkout-btn-secundario,
+    .checkout-btn-principal{
+      height:48px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    .checkout-btn-secundario{
+      background:#fff;
+      border:1px solid #d9d9d9;
+      color:#555;
+    }
+
+    .checkout-btn-principal{
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      border:none;
+      color:#fff;
+    }
+
+    .checkout-brinde{
+      margin:10px 0 22px;
+      border-top:6px solid #4f8f1f;
+      text-align:center;
+      color:#4f8f1f;
+      font-size:14px;
+      padding-top:10px;
+      font-weight:600;
+    }
+
+    .checkout-layout{
+      display:grid;
+      gap:20px;
+    }
+
+    .checkout-box,
+    .checkout-resumo-box,
+    .checkout-recomendacoes{
+      background:#fff;
+      border:1px solid #e9e1e1;
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.03);
+    }
+
+    .checkout-box h3,
+    .checkout-resumo-box h3,
+    .checkout-recomendacoes h3{
+      font-size:18px;
+      margin-bottom:14px;
+      color:#333;
+    }
+
+    .checkout-item{
+      display:grid;
+      grid-template-columns:70px 1fr auto;
+      gap:14px;
+      align-items:center;
+      padding:14px 0;
+      border-top:1px solid #f1e7e7;
+    }
+
+    .checkout-item:first-child{
+      border-top:none;
+    }
+
+    .checkout-item img{
+      width:70px;
+      height:70px;
+      object-fit:cover;
+      border-radius:12px;
+      background:#faf7f7;
+    }
+
+    .checkout-item-info h4{
+      font-size:15px;
+      color:#333;
+      line-height:1.4;
+      margin-bottom:4px;
+    }
+
+    .checkout-item-info span{
+      display:block;
+      font-size:13px;
+      color:#777;
+    }
+
+    .checkout-item-price{
+      text-align:right;
+      font-weight:700;
+      color:#333;
+    }
+
+    .checkout-qtd{
+      display:flex;
+      align-items:center;
+      border:1px solid #e7dede;
+      border-radius:10px;
+      overflow:hidden;
+      width:92px;
+      margin-top:8px;
+    }
+
+    .checkout-qtd button{
+      width:28px;
+      height:28px;
+      border:none;
+      background:#faf5f6;
+      color:#d96a72;
+      cursor:pointer;
+    }
+
+    .checkout-qtd span{
+      flex:1;
+      text-align:center;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .checkout-cols{
+      display:grid;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .campo-frete{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .campo-frete input{
+      flex:1;
+      min-width:180px;
+      height:46px;
+      border:1px solid #e6dddd;
+      border-radius:12px;
+      padding:0 14px;
+      outline:none;
+    }
+
+    .campo-frete button{
+      height:46px;
+      border:none;
+      border-radius:12px;
+      background:#d96a72;
+      color:#fff;
+      padding:0 18px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .frete-texto{
+      margin-top:10px;
+      font-size:14px;
+      color:#666;
+      line-height:1.6;
+    }
+
+    .resumo-linha{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid #f1e8e8;
+      color:#555;
+      font-size:14px;
+    }
+
+    .resumo-linha.total{
+      font-size:20px;
+      font-weight:700;
+      color:#333;
+      border-bottom:none;
+      padding-top:16px;
+    }
+
+    .resumo-pagamento{
+      margin-top:10px;
+      font-size:13px;
+      color:#777;
+      line-height:1.6;
+    }
+
+    .checkout-recomendacoes{
+      margin-top:20px;
+    }
+
+    .recomendacoes-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+      margin-top:14px;
+    }
+
+    .recomendacao-card{
+      border:1px solid #eee4e4;
+      border-radius:18px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .recomendacao-card img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:14px;
+      background:#faf7f7;
+      margin-bottom:12px;
+    }
+
+    .recomendacao-card h4{
+      font-size:14px;
+      line-height:1.4;
+      min-height:40px;
+      margin-bottom:8px;
+    }
+
+    .recomendacao-card .preco-antigo{
+      font-size:13px;
+      color:#999;
+      text-decoration:line-through;
+    }
+
+    .recomendacao-card .preco-atual{
+      font-size:24px;
+      color:#d96a72;
+      font-weight:700;
+      margin:4px 0 10px;
+    }
+
+    .recomendacao-card .acoes-rec{
+      display:grid;
+      gap:10px;
+    }
+
+    .btn-rec{
+      height:42px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .btn-rec.ver{
+      background:#fff;
+      border:1px solid #d9d9d9;
+      color:#555;
+    }
+
+    .btn-rec.add{
+      background:#fff0f3;
+      border:1px solid #efc6cf;
+      color:#c85b73;
+    }
+
+    .identificacao-card,
+    .minha-conta-card,
+    .meus-pedidos-card{
+      max-width:760px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid #e9e1e1;
+      border-radius:24px;
+      padding:28px 22px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.03);
+      text-align:center;
+    }
+
+    .identificacao-card h2,
+    .minha-conta-card h2,
+    .meus-pedidos-card h2{
+      font-size:30px;
+      margin-bottom:8px;
+      color:#333;
+    }
+
+    .identificacao-card p,
+    .minha-conta-card p,
+    .meus-pedidos-card p{
+      color:#666;
+      line-height:1.6;
+      margin-bottom:18px;
+    }
+
+    .identificacao-linha{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom:16px;
+    }
+
+    .identificacao-linha input{
+      flex:1;
+      min-width:240px;
+      max-width:420px;
+      height:50px;
+      border:1px solid #e6dddd;
+      border-radius:12px;
+      padding:0 14px;
+      outline:none;
+    }
+
+    .identificacao-linha button{
+      height:50px;
+      border:none;
+      border-radius:12px;
+      padding:0 18px;
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .login-social{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin:18px 0;
+    }
+
+    .login-social button{
+      min-width:220px;
+      height:48px;
+      border:1px solid #ddd;
+      border-radius:12px;
+      background:#fff;
+      color:#555;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .form-conta{
+      display:grid;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .form-conta input{
+      width:100%;
+      height:48px;
+      border:1px solid #e6dddd;
+      border-radius:12px;
+      padding:0 14px;
+      outline:none;
+    }
+
+    .form-duplo{
+      display:grid;
+      gap:12px;
+    }
+
+    .salvar-conta-btn{
+      height:50px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg, #d85a66, #ef8b91);
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+    }
+
+    .lista-pedidos{
+      display:grid;
+      gap:14px;
+      text-align:left;
+      margin-top:18px;
+    }
+
+    .pedido-item{
+      border:1px solid #eee4e4;
+      border-radius:16px;
+      padding:16px;
+      background:#fff;
+    }
+
+    .pedido-item strong{
+      display:block;
+      font-size:15px;
+      color:#333;
+      margin-bottom:6px;
+    }
+
+    .pedido-item span{
+      display:block;
+      font-size:14px;
+      color:#666;
+      line-height:1.5;
+    }
+
+    .voltar-link-page{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:16px;
+      background:#fff;
+      border:1px solid #e6dddd;
+      border-radius:999px;
+      padding:10px 16px;
+      cursor:pointer;
+      color:#555;
+      font-weight:500;
+    }
+
+    /* NEWSLETTER */
+    .newsletter{
+      padding:0 0 28px;
+    }
+
+    .newsletter-box{
+      background:linear-gradient(135deg, #cf5d68, #ea8b8c);
+      border-radius:24px;
+      padding:24px 20px;
+      color:#fff;
+      display:grid;
+      gap:18px;
+    }
+
+    .newsletter-texto h3{
+      font-size:24px;
+      line-height:1.2;
+      margin-bottom:8px;
+      text-transform:uppercase;
+    }
+
+    .newsletter-texto p{
+      font-size:14px;
+      opacity:0.95;
+    }
+
+    .newsletter-form{
+      display:grid;
+      gap:12px;
+    }
+
+    .newsletter-form input{
+      width:100%;
+      height:50px;
+      border:none;
+      border-radius:12px;
+      padding:0 16px;
+      font-size:14px;
+      outline:none;
+    }
+
+    .newsletter-form button{
+      height:50px;
+      border:none;
+      border-radius:12px;
+      background:#fff;
+      color:#cf5d68;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    /* FOOTER */
+    .footer{
+      padding:0 0 40px;
+    }
+
+    .footer-box{
+      background:#fff;
+      border:1px solid #eee4e4;
+      border-radius:24px;
+      padding:28px 20px;
+      display:grid;
+      gap:28px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.03);
+    }
+
+    .footer-col h4{
+      color:#cc6d76;
+      font-size:14px;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    .footer-logo{
+      line-height:1;
+      margin-bottom:14px;
+    }
+
+    .footer-logo h3{
+      font-family:"Playfair Display", serif;
+      font-size:34px;
+      color:#2b1d1d;
+    }
+
+    .footer-logo p{
+      margin-top:5px;
+      font-size:11px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#796e6e;
+    }
+
+    .footer-descricao{
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      max-width:280px;
+    }
+
+    .footer-social{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+    }
+
+    .footer-social a{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#f8eef0;
+      color:#cc6d76;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+    }
+
+    .footer-links{
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+
+    .footer-links li,
+    .footer-contato p{
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .footer-contato strong{
+      color:#444;
+    }
+
+    .pagamento-box,
+    .seguranca-box{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .pag-item,
+    .seg-item{
+      min-height:54px;
+      background:#fbf7f7;
+      border:1px solid #eee2e2;
+      border-radius:14px;
+      padding:12px;
+      font-size:13px;
+      color:#666;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      box-shadow:0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .pag-item i,
+    .seg-item i{
+      margin-right:8px;
+      color:#d96a72;
+    }
+
+    .rodape-final{
+      padding-top:18px;
+      text-align:center;
+      color:#8a8a8a;
+      font-size:13px;
+    }
+
+    /* REDES FIXAS */
+    .redes-fixas{
+      position:fixed;
+      right:14px;
+      bottom:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:120;
+    }
+
+    .rede-btn{
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:24px;
+      box-shadow:0 12px 25px rgba(0,0,0,0.16);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .rede-btn:hover{
+      transform:scale(1.06);
+      box-shadow:0 16px 28px rgba(0,0,0,0.22);
+    }
+
+    .instagram{
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+
+    .whatsapp{
+      background:#25D366;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 900px){
+      .container{
+        padding:0 20px;
+      }
+
+      .topo-mobile{
+        display:none;
+      }
+
+      .topo-desktop{
+        display:block;
+      }
+
+      .hero{
+        padding:0;
+      }
+
+      .banner{
+        height:470px;
+        border-radius:0;
+        box-shadow:none;
+      }
+
+      .slide-conteudo{
+        padding:56px 60px;
+      }
+
+      .slide-conteudo h2{
+        font-size:64px;
+        max-width:450px;
+      }
+
+      .slide-conteudo p{
+        font-size:18px;
+        max-width:440px;
+      }
+
+      .tag{
+        font-size:14px;
+        padding:10px 16px;
+      }
+
+      .btn{
+        padding:14px 24px;
+        font-size:15px;
+      }
+
+      .preco-destaque{
+        display:flex;
+        position:absolute;
+        right:60px;
+        top:50%;
+        transform:translateY(-50%);
+        width:220px;
+        height:220px;
+        border-radius:50%;
+        background:rgba(220, 140, 98, 0.90);
+        color:#fff;
+        z-index:3;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        padding:20px;
+      }
+
+      .preco-destaque small{
+        font-size:18px;
+      }
+
+      .preco-destaque strong{
+        font-size:66px;
+        line-height:1;
+      }
+
+      .preco-destaque span{
+        font-size:14px;
+        margin-top:8px;
+      }
+
+      .beneficios-grid{
+        grid-template-columns:repeat(5, 1fr);
+        gap:18px;
+      }
+
+      .beneficio-item{
+        background:transparent;
+        border:none;
+        border-radius:0;
+        padding:0;
+      }
+
+      .categorias{
+        padding:26px 0 26px;
+      }
+
+      .categorias h2{
+        font-size:42px;
+        margin-bottom:28px;
+      }
+
+      .categorias-wrapper{
+        padding:0 30px;
+      }
+
+      .seta-categoria{
+        display:flex;
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
+        width:42px;
+        height:42px;
+        border-radius:50%;
+        border:1px solid #efcbd1;
+        background:#fff;
+        color:#d96a72;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        z-index:2;
+        box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      }
+
+      .seta-esquerda{
+        left:-6px;
+      }
+
+      .seta-direita{
+        right:-6px;
+      }
+
+      .categoria-card{
+        min-width:170px;
+        flex:0 0 170px;
+      }
+
+      .categoria-imagem{
+        width:170px;
+        height:170px;
+      }
+
+      .categoria-card span{
+        font-size:15px;
+      }
+
+      .kits{
+        padding:38px 0 42px;
+      }
+
+      .kits h2{
+        font-size:38px;
+        margin-bottom:30px;
+      }
+
+      .produtos-grid{
+        grid-template-columns:repeat(5, 1fr);
+        gap:20px;
+      }
+
+      .produto-card{
+        padding:14px;
+        border-radius:20px;
+      }
+
+      .produto-nome{
+        font-size:14px;
+        min-height:58px;
+      }
+
+      .produto-preco{
+        font-size:24px;
+      }
+
+      .produto-detalhe-topo{
+        grid-template-columns:1.02fr 1fr;
+        align-items:start;
+      }
+
+      .linha-controles{
+        grid-template-columns:180px 1fr;
+        align-items:end;
+      }
+
+      .produto-acoes{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .checkout-top-actions{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .checkout-layout{
+        grid-template-columns:1.4fr 0.9fr;
+        align-items:start;
+      }
+
+      .checkout-cols{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .recomendacoes-grid{
+        grid-template-columns:repeat(4, 1fr);
+      }
+
+      .form-duplo{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .newsletter-box{
+        grid-template-columns:1.2fr 1fr;
+        align-items:center;
+        padding:30px 28px;
+      }
+
+      .newsletter-form{
+        grid-template-columns:1fr 1fr auto;
+        align-items:center;
+      }
+
+      .newsletter-form button{
+        padding:0 24px;
+      }
+
+      .footer-box{
+        grid-template-columns:1.2fr 1fr 1fr 1fr;
+        gap:34px;
+        padding:36px 28px;
+      }
+
+      .rodape-final{
+        padding-top:24px;
+      }
+
+      .redes-fixas{
+        right:24px;
+        bottom:30px;
+      }
+
+      .rede-btn{
+        width:58px;
+        height:58px;
+        font-size:28px;
+      }
+    }
+
+    @media (max-width: 899px){
+      .painel-carrinho{
+        width:100%;
+      }
+    }
+
+    @media (max-width: 380px){
+      .produtos-grid{
+        grid-template-columns:1fr;
+      }
+
+      .slide-conteudo h2{
+        font-size:27px;
+      }
+
+      .categoria-card{
+        min-width:124px;
+        flex:0 0 124px;
+      }
+
+      .categoria-imagem{
+        width:124px;
+        height:124px;
+      }
+
+      .miniaturas{
+        grid-template-columns:repeat(4, 1fr);
+      }
+    }
+    .indicadores {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  background: #f8b6c1;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.dot.active {
+  width: 25px;
+  border-radius: 10px;
+  background: #d65a6f;
+}
+    .categorias{
+  padding: 35px 20px;
+  text-align: center;
+}
+
+.categorias h2{
+  font-size: 34px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 28px;
+}
+
+.categorias-scroll{
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.categorias-scroll::-webkit-scrollbar{
+  display: none;
+}
+
+.categoria-item{
+  min-width: 140px;
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+/* CÍRCULO */
+.categoria-circulo{
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f8dbe2;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGEM DENTRO DO CÍRCULO */
+.categoria-circulo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.categoria-item p{
+  font-size: 18px;
+  color: #4a4a4a;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* INDICADORES */
+.categorias-indicadores{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.categorias-indicadores span{
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f3b7c2;
+  display: inline-block;
+}
+
+.categorias-indicadores .ativo{
+  width: 52px;
+  height: 16px;
+  border-radius: 20px;
+  background: #d95f78;
+}
+    .categorias-scroll{
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.categorias-scroll::-webkit-scrollbar{
+  display: none;
+}
+
+.categoria-card{
+  min-width: 140px;
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.categoria-imagem{
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f8dbe2;
+  margin: 0 auto 12px;
+}
+
+.categoria-imagem img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.categoria-card span{
+  display: block;
+  font-size: 18px;
+  color: #4a4a4a;
+  font-weight: 500;
+  margin: 0;
+}
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="menu-lateral" id="menuLateral">
+    <div class="menu-topo">
+      <h2>Menu</h2>
+      <button class="fechar-menu" id="fecharMenu">?</button>
+    </div>
+
+    <nav class="menu-links">
+      <a href="#inicio">Início</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#kits">Produtos</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </aside>
+
+  <aside class="painel-carrinho" id="painelCarrinho">
+    <div class="carrinho-header">
+      <button class="fechar-carrinho-topo" id="fecharCarrinho">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <span>Carrinho de compras</span>
+    </div>
+
+    <div class="carrinho-corpo">
+      <div class="carrinho-vazio" id="carrinhoVazio">
+        <div class="icone-carrinho-vazio">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div class="texto-carrinho">Seu carrinho está vazio</div>
+        <button class="btn-fechar-carrinho" id="fecharCarrinhoBtn">Fechar carrinho</button>
+      </div>
+
+      <div class="lista-carrinho" id="listaCarrinho" style="display:none;"></div>
+    </div>
+
+    <div class="rodape-carrinho" id="rodapeCarrinho" style="display:none;">
+      <div class="total-carrinho">
+        <span>Total</span>
+        <span id="totalCarrinho">R$ 0,00</span>
+      </div>
+      <button class="botao-finalizar" id="botaoFinalizar">Finalizar pedido</button>
+    </div>
+  </aside>
+
+  <div class="site">
+    <header class="topo-mobile" id="inicio">
+      <div class="container">
+        <button class="menu-btn" id="abrirMenu" aria-label="Abrir menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="logo">
+          <a href="#inicio" class="logo-link" id="logoMobileHome">
+            <h1>Cruzinha</h1>
+            <p>Variedades</p>
+          </a>
+        </div>
+
+        <button class="carrinho-btn" id="abrirCarrinho" aria-label="Abrir carrinho">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="contador" id="contadorMobile">0</span>
+        </button>
+      </div>
+    </header>
+
+    <header class="topo-desktop">
+      <div class="topo-desktop-superior">
+        <div class="container">
+          <div class="logo-desktop">
+            <a href="#inicio" class="logo-desktop-link" id="logoDesktopHome">
+              <h1>Cruzinha</h1>
+              <p>Variedades</p>
+            </a>
+          </div>
+
+          <div class="busca">
+            <input type="text" placeholder="O que deseja procurar?">
+            <button aria-label="Pesquisar">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+
+          <div class="acoes-desktop">
+            <div class="acao-dropdown">
+              <div class="acao-item">
+                <span class="acao-icone"><i class="fa-regular fa-circle-question"></i></span>
+                <strong>Atendimento</strong>
+              </div>
+
+              <div class="dropdown-box">
+                <div class="drop-contato-item">
+                  <i class="fa-brands fa-whatsapp"></i>
+                  <div>
+                    <div class="titulo-drop">Fale no WhatsApp</div>
+                    <div>(89) 9 9975-5040</div>
+                  </div>
+                </div>
+
+                <div class="drop-contato-item">
+                  <i class="fa-regular fa-envelope"></i>
+                  <div>
+                    <div class="titulo-drop">Envie um e-mail</div>
+                    <div>suporte@cruzinhavariedades.com.br</div>
+                  </div>
+                </div>
+
+                <div class="drop-contato-item">
+                  <i class="fa-regular fa-clock"></i>
+                  <div>
+                    <div class="titulo-drop">Horário de atendimento</div>
+                    <div>09:00 às 17:00</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="acao-dropdown">
+              <div class="acao-item">
+                <span class="acao-icone"><i class="fa-regular fa-circle-user"></i></span>
+                <strong>Minha Conta</strong>
+              </div>
+
+              <div class="dropdown-box">
+                <div class="titulo-drop">Olá, <span style="color:#d96a72;">Visitante</span></div>
+                <a href="#" class="link-minha-conta" id="abrirMinhaConta">Minha conta</a>
+                <a href="#" class="link-minha-conta" id="abrirMeusPedidos">Meus pedidos</a>
+                <button class="botao-entrar" id="abrirEntrarConta" type="button">ENTRAR</button>
+                <a href="#" class="cadastro-link" id="abrirCadastroConta">Cadastre-se agora</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="carrinho-desktop">
+            <button class="carrinho-btn-desktop" id="abrirCarrinhoDesktop" aria-label="Abrir carrinho">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="contador" id="contadorDesktop">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="menu-categorias">
+        <div class="container">
+          <a href="#">Promoções</a>
+          <a href="#">Utilidades</a>
+          <a href="#">Variedades</a>
+          <a href="#">Beleza</a>
+          <a href="#">Acessórios</a>
+          <a href="#">Infantil</a>
+          <a href="#">Masculino</a>
+          <a href="#">Feminino</a>
+          <a href="#">Mais Vendidos</a>
+          <a href="#">Novidades</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="paginaInicial">
+      <section class="hero">
+        <div class="container">
+          <div class="banner">
+            <div class="slides" id="slides">
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1400&auto=format&fit=crop" alt="Banner 1">
+                <div class="slide-conteudo">
+                  <span class="tag">Novidades da semana</span>
+                  <h2>Ofertas especiais para você</h2>
+                  <p>Encontre variedade, praticidade e preço justo em um só lugar.</p>
+
+                  <div class="botoes-banner">
+                    <a href="#kits" class="btn btn-principal">Comprar agora</a>
+                    <a href="#kits" class="btn btn-secundario">Ver catálogo</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1400&auto=format&fit=crop" alt="Banner 2">
+                <div class="slide-conteudo">
+                  <span class="tag">Cruzinha Variedades</span>
+                  <h2>Qualidade e preço justo</h2>
+                  <p>Uma loja online com visual moderno, leve e pronta para receber seus produtos.</p>
+
+                  <div class="botoes-banner">
+                    <a href="#categorias" class="btn btn-principal">Explorar</a>
+                    <a href="#contato" class="btn btn-secundario">Contato</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1400&auto=format&fit=crop" alt="Banner 3">
+                <div class="slide-conteudo">
+                  <span class="tag">Base pronta</span>
+                  <h2>Seu catálogo começa aqui</h2>
+                  <p>Depois vamos trocar pelas fotos e preços reais da sua loja.</p>
+
+                  <div class="botoes-banner">
+                    <a href="#kits" class="btn btn-principal">Continuar</a>
+                    <a href="#newsletter" class="btn btn-secundario">Novidades</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preco-destaque">
+              <small>por apenas</small>
+              <strong>28</strong>
+              <span>ofertas imperdíveis</span>
+            </div>
+
+            <div class="bolinhas-banner">
+              <button class="indicador ativo" data-slide="0"></button>
+              <button class="indicador" data-slide="1"></button>
+              <button class="indicador" data-slide="2"></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faixa-beneficios">
+        <div class="container">
+          <div class="beneficios-grid">
+            <div class="beneficio-item">
+              <i class="fa-solid fa-truck-fast"></i>
+              <div>
+                <strong>Melhores preços</strong>
+                <span>de envio para todo Brasil</span>
+              </div>
+            </div>
+
+            <div class="beneficio-item">
+              <i class="fa-solid fa-percent"></i>
+              <div>
+                <strong>Descontos</strong>
+                <span>em pagamentos à vista</span>
+              </div>
+            </div>
+
+            <div class="beneficio-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <strong>Entrega local</strong>
+                <span>em Valença do Piauí</span>
+              </div>
+            </div>
+
+            <div class="beneficio-item">
+              <i class="fa-regular fa-credit-card"></i>
+              <div>
+                <strong>Pague com cartão</strong>
+                <span>em até 2x s/ juros</span>
+              </div>
+            </div>
+
+            <div class="beneficio-item">
+              <i class="fa-solid fa-shield-heart"></i>
+              <div>
+                <strong>Segurança</strong>
+                <span>Loja oficial</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+       <section class="categorias" id="categorias">
+  <div class="container">
+    <h2>Escolha por categoria</h2>
+
+    <div class="categorias-wrapper">
+      <div class="categorias-scroll" id="categoriasScroll">
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Perfumes</span>
+        </div>
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Feminino</span>
+        </div>
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Masculino</span>
+        </div>
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Infantil</span>
+        </div>
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Semi joias</span>
+        </div>
+
+        <div class="categoria-card">
+          <div class="categoria-imagem">
+            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <span>Acessórios</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="indicadores">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+  </div>
+</section>
+
+      <section class="kits" id="kits">
+        <div class="container">
+          <h2>Os melhores kits do Brasil</h2>
+
+          <div class="produtos-grid" id="produtosGrid">
+            <article class="produto-card">
+              <span class="desconto">? 73%</span>
+              <div class="produto-imagem">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop" alt="Kit leve e delicado">
+              </div>
+              <div class="selos">
+                <span class="selo">Novidade</span>
+                <span class="selo">Destaque</span>
+              </div>
+              <p class="produto-nome">Kit completo leve e delicado com fragrância suave e toque especial.</p>
+              <div class="produto-preco">R$ 159,99</div>
+              <button class="produto-botao comprar-btn" data-id="1">Comprar</button>
+            </article>
+
+            <article class="produto-card">
+              <span class="desconto">? 73%</span>
+              <div class="produto-imagem">
+                <img src="https://images.unsplash.com/photo-1556228578-dd6c2f7d1c3b?q=80&w=900&auto=format&fit=crop" alt="Kit óleo corporal">
+              </div>
+              <div class="selos">
+                <span class="selo">Novidade</span>
+                <span class="selo">Destaque</span>
+              </div>
+              <p class="produto-nome">Kit completo com óleo corporal, perfume e linha refrescante.</p>
+              <div class="produto-preco">R$ 139,99</div>
+              <button class="produto-botao comprar-btn" data-id="2">Comprar</button>
+            </article>
+
+            <article class="produto-card">
+              <span class="desconto">? 73%</span>
+              <div class="produto-imagem">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop" alt="Kit presentear com estilo">
+              </div>
+              <div class="selos">
+                <span class="selo">Novidade</span>
+                <span class="selo">Destaque</span>
+              </div>
+              <p class="produto-nome">Kit com perfume, splash e óleo corporal para presentear com estilo.</p>
+              <div class="produto-preco">R$ 159,99</div>
+              <button class="produto-botao comprar-btn" data-id="3">Comprar</button>
+            </article>
+
+            <article class="produto-card">
+              <span class="desconto">? 70%</span>
+              <div class="produto-imagem">
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop" alt="Kit elegante completo">
+              </div>
+              <div class="selos">
+                <span class="selo">Novidade</span>
+                <span class="selo">Destaque</span>
+              </div>
+              <p class="produto-nome">Kit completo com perfume, hidratante e acabamento elegante.</p>
+              <div class="produto-preco">R$ 159,99</div>
+              <button class="produto-botao comprar-btn" data-id="4">Comprar</button>
+            </article>
+
+            <article class="produto-card">
+              <span class="desconto">? 70%</span>
+              <div class="produto-imagem">
+                <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=900&auto=format&fit=crop" alt="Kit deluxe completo">
+              </div>
+              <div class="selos">
+                <span class="selo">Novidade</span>
+                <span class="selo">Destaque</span>
+              </div>
+              <p class="produto-nome">Kit deluxe com perfume e hidratante para uma rotina mais completa.</p>
+              <div class="produto-preco">R$ 159,99</div>
+              <button class="produto-botao comprar-btn" data-id="5">Comprar</button>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="pagina-produto hidden" id="paginaProduto">
+      <div class="container">
+        <div class="breadcrumb">
+          <span>Início</span>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Produtos</span>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span id="breadcrumbProduto">Detalhes do produto</span>
+        </div>
+
+        <button class="produto-voltar" id="voltarProdutos">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar para produtos
+        </button>
+
+        <div class="produto-detalhe-topo">
+          <div class="produto-galeria">
+            <div class="produto-galeria-principal">
+              <img id="produtoImagemPrincipal" src="" alt="Produto">
+            </div>
+
+            <div class="miniaturas" id="miniaturasProduto"></div>
+          </div>
+
+          <div class="produto-infos-box">
+            <div class="produto-tags" id="produtoTags"></div>
+
+            <h1 class="produto-titulo" id="produtoTitulo"></h1>
+            <div class="produto-ref" id="produtoRef"></div>
+
+            <div class="produto-avaliacao-topo">
+              <div class="estrelas" id="produtoEstrelasTopo">?????</div>
+              <span id="produtoResumoAvaliacao"></span>
+            </div>
+
+            <div class="produto-preco-area">
+              <span class="produto-preco-antigo" id="produtoPrecoAntigo"></span>
+              <span class="produto-preco-atual" id="produtoPrecoAtual"></span>
+              <span class="produto-preco-pix" id="produtoPix"></span>
+            </div>
+
+            <div class="kit-lista">
+              <div class="kit-lista-topo">Produtos do kit</div>
+              <div id="kitListaItens"></div>
+            </div>
+
+            <div class="linha-controles">
+              <div class="quantidade-box">
+                <label>Quantidade</label>
+                <div class="quantidade-controle">
+                  <button type="button" id="menosQtd">-</button>
+                  <span id="quantidadeProduto">1</span>
+                  <button type="button" id="maisQtd">+</button>
+                </div>
+              </div>
+
+              <div class="frete-box">
+                <label>Frete e prazo de entrega</label>
+                <div class="frete-linha">
+                  <input type="text" id="cepInput" maxlength="9" placeholder="Informe seu CEP">
+                  <button type="button" id="calcularFreteBtn">Calcular</button>
+                </div>
+                <div class="frete-resultado hidden" id="freteResultado"></div>
+              </div>
+            </div>
+
+            <div class="produto-acoes">
+              <button class="botao-comprar-grande" id="comprarAgoraDetalhe">Comprar agora</button>
+              <button class="botao-adicionar" id="adicionarCarrinhoDetalhe">Adicionar ao carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-descricao-box">
+          <h2 class="titulo-box">Descrição geral</h2>
+          <div class="descricao-texto" id="produtoDescricao"></div>
+          <ul class="descricao-lista" id="produtoCaracteristicas"></ul>
+        </div>
+
+        <div class="produto-opinioes-box">
+          <h2 class="titulo-box">Opiniões de clientes</h2>
+
+          <div class="opinioes-resumo">
+            <div class="opinioes-nota" id="notaMediaProduto">5.0</div>
+            <div>
+              <div class="estrelas" id="estrelasResumoProduto">?????</div>
+              <div class="opinioes-total" id="totalAvaliacoesProduto">Baseado em 3 avaliações</div>
+            </div>
+          </div>
+
+          <div class="opinioes-grid" id="listaOpinioes"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="checkout-page hidden" id="checkoutPage">
+      <div class="container">
+        <button class="voltar-link-page" id="voltarCheckoutParaHome">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar
+        </button>
+
+        <div class="checkout-top-actions">
+          <button class="checkout-btn-secundario" id="escolherMaisProdutos">Escolher mais produtos</button>
+          <button class="checkout-btn-principal" id="continuarCheckout">Continuar</button>
+        </div>
+
+        <div class="checkout-brinde">Você ganhou um super brinde exclusivo!</div>
+
+        <div class="checkout-layout">
+          <div>
+            <div class="checkout-box">
+              <h3>Meu carrinho</h3>
+              <div id="listaCheckout"></div>
+            </div>
+
+            <div class="checkout-cols">
+              <div class="checkout-box">
+                <h3>Frete</h3>
+                <div class="campo-frete">
+                  <input type="text" id="checkoutCep" maxlength="9" placeholder="Digite seu CEP">
+                  <button type="button" id="buscarFreteCheckout">Buscar</button>
+                </div>
+                <div class="frete-texto" id="freteCheckoutTexto">Não sei meu CEP</div>
+              </div>
+
+              <div class="checkout-resumo-box">
+                <h3>Resumo do pedido</h3>
+                <div class="resumo-linha">
+                  <span>Subtotal</span>
+                  <span id="subtotalCheckout">R$ 0,00</span>
+                </div>
+                <div class="resumo-linha">
+                  <span>Cupom de desconto</span>
+                  <span>Adicionar cupom</span>
+                </div>
+                <div class="resumo-linha total">
+                  <span>Total do pedido</span>
+                  <span id="totalCheckoutResumo">R$ 0,00</span>
+                </div>
+                <div class="resumo-pagamento" id="textoPagamentoCheckout">
+                  no pix à vista ou em até 2x sem juros no cartão
+                </div>
+              </div>
+            </div>
+
+            <div class="checkout-recomendacoes">
+              <h3>Recomendamos para você</h3>
+              <div class="recomendacoes-grid" id="recomendacoesGrid"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="checkout-resumo-box">
+              <h3>Formas de pagamento</h3>
+              <div class="pagamento-box">
+                <span class="pag-item"><i class="fa-solid fa-bolt"></i>Pix</span>
+                <span class="pag-item"><i class="fa-brands fa-cc-visa"></i>Visa</span>
+                <span class="pag-item"><i class="fa-brands fa-cc-mastercard"></i>Master</span>
+                <span class="pag-item"><i class="fa-solid fa-barcode"></i>Boleto</span>
+              </div>
+
+              <h3 style="margin-top:20px;">Segurança</h3>
+              <div class="seguranca-box">
+                <span class="seg-item"><i class="fa-solid fa-lock"></i>Seus dados 100% seguros</span>
+                <span class="seg-item"><i class="fa-solid fa-shield-halved"></i>Loja Protegida</span>
+                <span class="seg-item"><i class="fa-brands fa-google"></i>Google Safe</span>
+                <span class="seg-item"><i class="fa-solid fa-circle-check"></i>Compra Segura</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="identificacao-page hidden" id="identificacaoPage">
+      <div class="container">
+        <button class="voltar-link-page" id="voltarIdentificacaoParaCheckout">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar ao carrinho
+        </button>
+
+        <div class="identificacao-card">
+          <h2>Identifique-se</h2>
+          <p>Informe seu e-mail, CPF ou CNPJ para prosseguir com a compra.</p>
+
+          <div class="identificacao-linha">
+            <input type="text" id="campoIdentificacao" placeholder="E-mail ou CPF/CNPJ">
+            <button type="button" id="btnContinuarIdentificacao">Continuar</button>
+          </div>
+
+          <p>ou conecte-se com a sua conta</p>
+
+          <div class="login-social">
+            <button type="button"><i class="fa-brands fa-google"></i> Fazer login com o Google</button>
+            <button type="button"><i class="fa-brands fa-facebook-f"></i> Fazer login com o Facebook</button>
+          </div>
+
+          <p>Ao continuar você concorda com nossa política de privacidade e nossos termos de uso.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="minha-conta-page hidden" id="minhaContaPage">
+      <div class="container">
+        <button class="voltar-link-page voltar-home-page">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar
+        </button>
+
+        <div class="minha-conta-card">
+          <h2>Minha conta</h2>
+          <p>Atualize seus dados para facilitar suas próximas compras.</p>
+
+          <form class="form-conta">
+            <input type="email" placeholder="Seu e-mail">
+            <div class="form-duplo">
+              <input type="text" placeholder="Nome completo">
+              <input type="text" placeholder="CPF">
+            </div>
+            <div class="form-duplo">
+              <input type="text" placeholder="Data de nascimento">
+              <input type="text" placeholder="Telefone celular ou fixo">
+            </div>
+            <div class="form-duplo">
+              <input type="text" placeholder="CEP">
+              <input type="text" placeholder="Cidade">
+            </div>
+            <input type="text" placeholder="Endereço">
+            <button type="button" class="salvar-conta-btn">Salvar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="meus-pedidos-page hidden" id="meusPedidosPage">
+      <div class="container">
+        <button class="voltar-link-page voltar-home-page">
+          <i class="fa-solid fa-arrow-left"></i>
+          Voltar
+        </button>
+
+        <div class="meus-pedidos-card">
+          <h2>Meus pedidos</h2>
+          <p>Acompanhe seus pedidos realizados na loja.</p>
+
+          <div class="lista-pedidos">
+            <div class="pedido-item">
+              <strong>Pedido #0001</strong>
+              <span>Status: Em preparação</span>
+              <span>Produto: Kit leve e delicado</span>
+              <span>Total: R$ 159,99</span>
+            </div>
+
+            <div class="pedido-item">
+              <strong>Pedido #0002</strong>
+              <span>Status: Entregue</span>
+              <span>Produto: Kit deluxe completo</span>
+              <span>Total: R$ 159,99</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter" id="newsletter">
+      <div class="container">
+        <div class="newsletter-box">
+          <div class="newsletter-texto">
+            <h3>Cadastre-se em nossa newsletter</h3>
+            <p>e receba novidades e promoções da Cruzinha Variedades.</p>
+          </div>
+
+          <form class="newsletter-form">
+            <input type="text" placeholder="Seu nome">
+            <input type="email" placeholder="Seu e-mail">
+            <button type="submit">Cadastre-se</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="contato">
+      <div class="container">
+        <div class="footer-box">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <h3>Cruzinha</h3>
+              <p>Variedades</p>
+            </div>
+
+            <p class="footer-descricao">
+              Cruzinha Variedades, sua escolha para produtos diversos com qualidade, estilo e praticidade para o dia a dia.
+            </p>
+
+            <div class="footer-social">
+              <a href="https://www.instagram.com/cruzinha_variedades/" target="_blank" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://wa.me/5589999755040" target="_blank" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Institucional</h4>
+            <ul class="footer-links">
+              <li>Como comprar</li>
+              <li>Segurança</li>
+              <li>Envio</li>
+              <li>Pagamento</li>
+              <li>Tempo de garantia</li>
+              <li>Política de privacidade</li>
+              <li>Termos de uso</li>
+              <li>Trocas e devoluções</li>
+              <li>Fale conosco</li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Atendimento</h4>
+            <div class="footer-contato">
+              <p><strong>Fale no WhatsApp</strong></p>
+              <p>(89) 9 9975-5040</p>
+              <br>
+              <p><strong>Envie um e-mail</strong></p>
+              <p>suporte@cruzinhavariedades.com.br</p>
+              <br>
+              <p><strong>Horário de atendimento</strong></p>
+              <p>09:00 às 17:00</p>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Formas de pagamento</h4>
+            <div class="pagamento-box">
+              <span class="pag-item"><i class="fa-solid fa-bolt"></i>Pix</span>
+              <span class="pag-item"><i class="fa-brands fa-cc-visa"></i>Visa</span>
+              <span class="pag-item"><i class="fa-brands fa-cc-mastercard"></i>Master</span>
+              <span class="pag-item"><i class="fa-solid fa-barcode"></i>Boleto</span>
+            </div>
+
+            <h4 style="margin-top:20px;">Selos de segurança</h4>
+            <div class="seguranca-box">
+              <span class="seg-item"><i class="fa-brands fa-google"></i>Google Safe</span>
+              <span class="seg-item"><i class="fa-solid fa-shield-halved"></i>Loja Protegida</span>
+              <span class="seg-item"><i class="fa-solid fa-lock"></i>SSL Seguro</span>
+              <span class="seg-item"><i class="fa-solid fa-circle-check"></i>Compra Segura</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rodape-final">
+          © 2026 Cruzinha Variedades - Todos os direitos reservados.
+        </div>
+      </div>
+    </footer>
+
+    <div class="redes-fixas">
+      <a class="rede-btn instagram" href="https://www.instagram.com/cruzinha_variedades/" target="_blank" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a class="rede-btn whatsapp" href="https://wa.me/5589999755040" target="_blank" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKnErSkEbSEyFRe1ln6jzuaDbY6wALdlc",
+      authDomain: "cruzinha-variedades.firebaseapp.com",
+      projectId: "cruzinha-variedades",
+      storageBucket: "cruzinha-variedades.firebasestorage.app",
+      messagingSenderId: "910515019899",
+      appId: "1:910515019899:web:32908916529bf1c8fc82de"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const abrirMenu = document.getElementById("abrirMenu");
+    const fecharMenu = document.getElementById("fecharMenu");
+    const menuLateral = document.getElementById("menuLateral");
+    const overlay = document.getElementById("overlay");
+
+    const abrirCarrinho = document.getElementById("abrirCarrinho");
+    const abrirCarrinhoDesktop = document.getElementById("abrirCarrinhoDesktop");
+    const fecharCarrinho = document.getElementById("fecharCarrinho");
+    const fecharCarrinhoBtn = document.getElementById("fecharCarrinhoBtn");
+    const painelCarrinho = document.getElementById("painelCarrinho");
+
+    const slides = document.getElementById("slides");
+    const indicadores = document.querySelectorAll(".indicador");
+
+    const categoriasScroll = document.getElementById("categoriasScroll");
+    const catPrev = document.getElementById("catPrev");
+    const catNext = document.getElementById("catNext");
+
+    const contadorMobile = document.getElementById("contadorMobile");
+    const contadorDesktop = document.getElementById("contadorDesktop");
+    const listaCarrinho = document.getElementById("listaCarrinho");
+    const carrinhoVazio = document.getElementById("carrinhoVazio");
+    const rodapeCarrinho = document.getElementById("rodapeCarrinho");
+    const totalCarrinho = document.getElementById("totalCarrinho");
+    const botaoFinalizar = document.getElementById("botaoFinalizar");
+
+    const paginaInicial = document.getElementById("paginaInicial");
+    const paginaProduto = document.getElementById("paginaProduto");
+    const checkoutPage = document.getElementById("checkoutPage");
+    const identificacaoPage = document.getElementById("identificacaoPage");
+    const minhaContaPage = document.getElementById("minhaContaPage");
+    const meusPedidosPage = document.getElementById("meusPedidosPage");
+
+    const voltarProdutos = document.getElementById("voltarProdutos");
+    const logoMobileHome = document.getElementById("logoMobileHome");
+    const logoDesktopHome = document.getElementById("logoDesktopHome");
+
+    const produtoImagemPrincipal = document.getElementById("produtoImagemPrincipal");
+    const miniaturasProduto = document.getElementById("miniaturasProduto");
+    const produtoTags = document.getElementById("produtoTags");
+    const produtoTitulo = document.getElementById("produtoTitulo");
+    const breadcrumbProduto = document.getElementById("breadcrumbProduto");
+    const produtoRef = document.getElementById("produtoRef");
+    const produtoResumoAvaliacao = document.getElementById("produtoResumoAvaliacao");
+    const produtoPrecoAntigo = document.getElementById("produtoPrecoAntigo");
+    const produtoPrecoAtual = document.getElementById("produtoPrecoAtual");
+    const produtoPix = document.getElementById("produtoPix");
+    const kitListaItens = document.getElementById("kitListaItens");
+    const quantidadeProduto = document.getElementById("quantidadeProduto");
+    const menosQtd = document.getElementById("menosQtd");
+    const maisQtd = document.getElementById("maisQtd");
+    const cepInput = document.getElementById("cepInput");
+    const calcularFreteBtn = document.getElementById("calcularFreteBtn");
+    const freteResultado = document.getElementById("freteResultado");
+    const comprarAgoraDetalhe = document.getElementById("comprarAgoraDetalhe");
+    const adicionarCarrinhoDetalhe = document.getElementById("adicionarCarrinhoDetalhe");
+    const produtoDescricao = document.getElementById("produtoDescricao");
+    const produtoCaracteristicas = document.getElementById("produtoCaracteristicas");
+    const notaMediaProduto = document.getElementById("notaMediaProduto");
+    const estrelasResumoProduto = document.getElementById("estrelasResumoProduto");
+    const totalAvaliacoesProduto = document.getElementById("totalAvaliacoesProduto");
+    const listaOpinioes = document.getElementById("listaOpinioes");
+
+    const listaCheckout = document.getElementById("listaCheckout");
+    const escolherMaisProdutos = document.getElementById("escolherMaisProdutos");
+    const continuarCheckout = document.getElementById("continuarCheckout");
+    const voltarCheckoutParaHome = document.getElementById("voltarCheckoutParaHome");
+    const subtotalCheckout = document.getElementById("subtotalCheckout");
+    const totalCheckoutResumo = document.getElementById("totalCheckoutResumo");
+    const checkoutCep = document.getElementById("checkoutCep");
+    const buscarFreteCheckout = document.getElementById("buscarFreteCheckout");
+    const freteCheckoutTexto = document.getElementById("freteCheckoutTexto");
+    const recomendacoesGrid = document.getElementById("recomendacoesGrid");
+    const voltarIdentificacaoParaCheckout = document.getElementById("voltarIdentificacaoParaCheckout");
+
+    const abrirMinhaConta = document.getElementById("abrirMinhaConta");
+    const abrirMeusPedidos = document.getElementById("abrirMeusPedidos");
+    const abrirEntrarConta = document.getElementById("abrirEntrarConta");
+    const abrirCadastroConta = document.getElementById("abrirCadastroConta");
+    const btnContinuarIdentificacao = document.getElementById("btnContinuarIdentificacao");
+
+    let slideAtual = 0;
+    const totalSlides = 3;
+    let carrinho = [];
+    let produtoAtual = null;
+    let quantidadeAtualProduto = 1;
+
+    let produtos = {
+      "1": {
+        id: "1",
+        nome: "Kit leve e delicado",
+        preco: 159.99,
+        precoAntigo: 559.99,
+        referencia: "REF: CRZ001",
+        tags: ["Novidade", "Destaque"],
+        descricao: "Um kit pensado para quem gosta de fragrância suave, toque delicado e sensação de cuidado completo no dia a dia. Ideal para presentear ou usar na rotina pessoal.",
+        caracteristicas: [
+          "Perfume com fragrância suave e elegante",
+          "Body splash para uso diário",
+          "Hidratante corporal com toque macio",
+          "Ótima opção para presentear",
+          "Combinação leve, feminina e marcante"
+        ],
+        itensKit: [
+          { nome: "Body splash 200ml", ref: "Ref: 00000147" },
+          { nome: "Perfume 100ml", ref: "Ref: 00000145" },
+          { nome: "Loção hidratante 200ml", ref: "Ref: 00000146" }
+        ],
+        imagens: [
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1556228578-dd6c2f7d1c3b?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop"
+        ],
+        avaliacoes: [
+          { nome: "Mariana", data: "14/03/2026", estrelas: 5, texto: "Chegou bem embalado e o cheiro é muito agradável. Gostei bastante da combinação do kit." },
+          { nome: "Juliana", data: "12/03/2026", estrelas: 5, texto: "Achei lindo para presente. O hidratante é muito gostoso e fixa bem na pele." },
+          { nome: "Aline", data: "09/03/2026", estrelas: 4, texto: "Produto bonito e com ótimo custo-benefício. Compraria novamente." }
+        ]
+      },
+      "2": {
+        id: "2",
+        nome: "Kit óleo corporal",
+        preco: 139.99,
+        precoAntigo: 519.99,
+        referencia: "REF: CRZ002",
+        tags: ["Novidade", "Destaque"],
+        descricao: "Kit com proposta refrescante e elegante, unindo perfume, óleo corporal e sensação de cuidado prolongado. Uma opção prática para quem quer um conjunto completo.",
+        caracteristicas: [
+          "Fragrância agradável e marcante",
+          "Óleo corporal com toque suave",
+          "Ideal para rotina pós-banho",
+          "Boa apresentação para presente",
+          "Excelente custo-benefício"
+        ],
+        itensKit: [
+          { nome: "Óleo corporal", ref: "Ref: 00000201" },
+          { nome: "Perfume 100ml", ref: "Ref: 00000202" },
+          { nome: "Body splash", ref: "Ref: 00000203" }
+        ],
+        imagens: [
+          "https://images.unsplash.com/photo-1556228578-dd6c2f7d1c3b?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop"
+        ],
+        avaliacoes: [
+          { nome: "Fernanda", data: "11/03/2026", estrelas: 5, texto: "Muito bonito e cheiroso. Gostei bastante do óleo corporal." },
+          { nome: "Bianca", data: "08/03/2026", estrelas: 4, texto: "Veio certinho e o perfume é muito bom." },
+          { nome: "Camila", data: "06/03/2026", estrelas: 5, texto: "Superou minha expectativa, vale muito a pena." }
+        ]
+      },
+      "3": {
+        id: "3",
+        nome: "Kit presentear com estilo",
+        preco: 159.99,
+        precoAntigo: 536.99,
+        referencia: "REF: CRZ003",
+        tags: ["Novidade", "Destaque"],
+        descricao: "Um kit elegante para presentear com estilo, reunindo perfume, splash e óleo corporal em uma composição charmosa e sofisticada.",
+        caracteristicas: [
+          "Perfeito para presentear",
+          "Combinação equilibrada e bonita",
+          "Fragrância agradável",
+          "Visual moderno e refinado",
+          "Itens selecionados para uso completo"
+        ],
+        itensKit: [
+          { nome: "Perfume 100ml", ref: "Ref: 00000311" },
+          { nome: "Body splash 200ml", ref: "Ref: 00000312" },
+          { nome: "Óleo corporal", ref: "Ref: 00000313" }
+        ],
+        imagens: [
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1556228578-dd6c2f7d1c3b?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop"
+        ],
+        avaliacoes: [
+          { nome: "Larissa", data: "13/03/2026", estrelas: 5, texto: "Comprei para presente e foi um sucesso. Achei a apresentação linda." },
+          { nome: "Patrícia", data: "10/03/2026", estrelas: 5, texto: "Ótima qualidade e preço justo." },
+          { nome: "Rafaela", data: "07/03/2026", estrelas: 4, texto: "Gostei bastante, principalmente do splash." }
+        ]
+      },
+      "4": {
+        id: "4",
+        nome: "Kit elegante completo",
+        preco: 159.99,
+        precoAntigo: 529.99,
+        referencia: "REF: CRZ004",
+        tags: ["Novidade", "Destaque"],
+        descricao: "Kit completo com visual elegante e proposta sofisticada para quem busca uma combinação equilibrada entre perfume, hidratação e presença marcante.",
+        caracteristicas: [
+          "Visual elegante",
+          "Perfume marcante",
+          "Hidratante corporal incluso",
+          "Ideal para uso diário ou presente",
+          "Combinação completa e harmoniosa"
+        ],
+        itensKit: [
+          { nome: "Perfume 100ml", ref: "Ref: 00000421" },
+          { nome: "Hidratante 200ml", ref: "Ref: 00000422" },
+          { nome: "Body splash", ref: "Ref: 00000423" }
+        ],
+        imagens: [
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1556228578-dd6c2f7d1c3b?q=80&w=900&auto=format&fit=crop"
+        ],
+        avaliacoes: [
+          { nome: "Thaís", data: "14/03/2026", estrelas: 5, texto: "Lindo demais. O perfume chama atenção e o hidratante é ótimo." },
+          { nome: "Débora", data: "10/03/2026", estrelas: 4, texto: "Gostei bastante do conjunto e da apresentação." },
+          { nome: "Renata", data: "05/03/2026", estrelas: 5, texto: "Veio tudo certinho e muito bem embalado." }
+        ]
+      },
+      "5": {
+        id: "5",
+        nome: "Kit deluxe completo",
+        preco: 159.99,
+        precoAntigo: 549.99,
+        referencia: "REF: CRZ005",
+        tags: ["Novidade", "Destaque"],
+        descricao: "Uma versão deluxe para quem gosta de uma experiência mais completa, com itens selecionados para compor uma rotina de cuidado e perfumação.",
+        caracteristicas: [
+          "Kit mais completo",
+          "Boa fixação e aroma agradável",
+          "Ótimo para presentear",
+          "Rotina de cuidados mais completa",
+          "Acabamento visual bonito"
+        ],
+        itensKit: [
+          { nome: "Perfume 100ml", ref: "Ref: 00000531" },
+          { nome: "Hidratante deluxe", ref: "Ref: 00000532" },
+          { nome: "Body splash 200ml", ref: "Ref: 00000533" }
+        ],
+        imagens: [
+          "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=900&auto=format&fit=crop"
+        ],
+        avaliacoes: [
+          { nome: "Sabrina", data: "13/03/2026", estrelas: 5, texto: "Muito completo, cheiroso e com ótima apresentação." },
+          { nome: "Paula", data: "11/03/2026", estrelas: 5, texto: "Vale a pena pelo conjunto todo, gostei demais." },
+          { nome: "Vanessa", data: "06/03/2026", estrelas: 4, texto: "Boa qualidade e ótima opção para presente." }
+        ]
+      }
+    };
+
+    function esconderTodasPaginas() {
+      paginaInicial.classList.add("hidden");
+      paginaProduto.classList.add("hidden");
+      checkoutPage.classList.add("hidden");
+      identificacaoPage.classList.add("hidden");
+      minhaContaPage.classList.add("hidden");
+      meusPedidosPage.classList.add("hidden");
+    }
+
+    function mostrarHome() {
+      esconderTodasPaginas();
+      paginaInicial.classList.remove("hidden");
+      fecharTudo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function mostrarCheckout() {
+      esconderTodasPaginas();
+      checkoutPage.classList.remove("hidden");
+      renderizarCheckout();
+      fecharTudo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function mostrarIdentificacao() {
+      esconderTodasPaginas();
+      identificacaoPage.classList.remove("hidden");
+      fecharTudo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function mostrarMinhaContaPage() {
+      esconderTodasPaginas();
+      minhaContaPage.classList.remove("hidden");
+      fecharTudo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function mostrarMeusPedidosPage() {
+      esconderTodasPaginas();
+      meusPedidosPage.classList.remove("hidden");
+      fecharTudo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function fecharTudo() {
+      menuLateral.classList.remove("ativo");
+      painelCarrinho.classList.remove("ativo");
+      overlay.classList.remove("ativo");
+    }
+
+    function abrirPainelCarrinho() {
+      painelCarrinho.classList.add("ativo");
+      menuLateral.classList.remove("ativo");
+      overlay.classList.add("ativo");
+    }
+
+    if (abrirMenu) {
+      abrirMenu.addEventListener("click", () => {
+        menuLateral.classList.add("ativo");
+        painelCarrinho.classList.remove("ativo");
+        overlay.classList.add("ativo");
+      });
+    }
+
+    if (abrirCarrinho) abrirCarrinho.addEventListener("click", abrirPainelCarrinho);
+    if (abrirCarrinhoDesktop) abrirCarrinhoDesktop.addEventListener("click", abrirPainelCarrinho);
+
+    fecharMenu.addEventListener("click", fecharTudo);
+    fecharCarrinho.addEventListener("click", fecharTudo);
+    fecharCarrinhoBtn.addEventListener("click", fecharTudo);
+    overlay.addEventListener("click", fecharTudo);
+
+    document.querySelectorAll(".menu-links a").forEach(link => {
+      link.addEventListener("click", fecharTudo);
+    });
+
+    function mostrarSlide(index) {
+      slideAtual = index;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      indicadores.forEach((item, i) => item.classList.toggle("ativo", i === index));
+    }
+
+    indicadores.forEach((botao, index) => {
+      botao.addEventListener("click", () => mostrarSlide(index));
+    });
+
+    setInterval(() => {
+      slideAtual = (slideAtual + 1) % totalSlides;
+      mostrarSlide(slideAtual);
+    }, 4000);
+
+    if (catPrev) {
+      catPrev.addEventListener("click", () => {
+        categoriasScroll.scrollBy({ left: -240, behavior: "smooth" });
+      });
+    }
+
+    if (catNext) {
+      catNext.addEventListener("click", () => {
+        categoriasScroll.scrollBy({ left: 240, behavior: "smooth" });
+      });
+    }
+
+    function formatarPreco(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function gerarEstrelas(qtd) {
+      return "?".repeat(qtd) + "?".repeat(5 - qtd);
+    }
+
+    function atualizarCarrinho() {
+      const quantidadeTotal = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+      contadorMobile.textContent = quantidadeTotal;
+      contadorDesktop.textContent = quantidadeTotal;
+
+      if (carrinho.length === 0) {
+        carrinhoVazio.style.display = "block";
+        listaCarrinho.style.display = "none";
+        rodapeCarrinho.style.display = "none";
+        listaCarrinho.innerHTML = "";
+        totalCarrinho.textContent = "R$ 0,00";
+        return;
+      }
+
+      carrinhoVazio.style.display = "none";
+      listaCarrinho.style.display = "grid";
+      rodapeCarrinho.style.display = "block";
+
+      listaCarrinho.innerHTML = "";
+      let total = 0;
+
+      carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+
+        const card = document.createElement("div");
+        card.className = "item-carrinho";
+        card.innerHTML = `
+          <img src="${item.imagem}" alt="${item.nome}">
+          <div class="item-carrinho-info">
+            <h4>${item.nome}</h4>
+            <p>${formatarPreco(item.preco)}</p>
+            <small>Quantidade: ${item.quantidade}</small>
+          </div>
+          <button class="remover-item" data-id="${item.id}" aria-label="Remover item">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        `;
+        listaCarrinho.appendChild(card);
+      });
+
+      totalCarrinho.textContent = formatarPreco(total);
+
+      document.querySelectorAll(".remover-item").forEach(botao => {
+        botao.addEventListener("click", () => {
+          const id = botao.getAttribute("data-id");
+          removerDoCarrinho(id);
+        });
+      });
+    }
+
+    function adicionarAoCarrinho(produto, quantidade = 1) {
+      const existente = carrinho.find(item => item.id === produto.id);
+
+      if (existente) {
+        existente.quantidade += quantidade;
+      } else {
+        carrinho.push({ ...produto, quantidade });
+      }
+
+      atualizarCarrinho();
+    }
+
+    function removerDoCarrinho(id) {
+      carrinho = carrinho
+        .map(item => item.id === id ? { ...item, quantidade: item.quantidade - 1 } : item)
+        .filter(item => item.quantidade > 0);
+
+      atualizarCarrinho();
+      renderizarCheckout();
+    }
+
+    function mostrarPaginaProduto(produtoId) {
+      const produto = produtos[produtoId];
+      if (!produto) return;
+
+      esconderTodasPaginas();
+      paginaProduto.classList.remove("hidden");
+
+      produtoAtual = produto;
+      quantidadeAtualProduto = 1;
+      quantidadeProduto.textContent = quantidadeAtualProduto;
+      freteResultado.classList.add("hidden");
+      freteResultado.innerHTML = "";
+      cepInput.value = "";
+
+      produtoImagemPrincipal.src = produto.imagens[0];
+      produtoImagemPrincipal.alt = produto.nome;
+
+      produtoTags.innerHTML = "";
+      produto.tags.forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "produto-tag";
+        span.textContent = tag;
+        produtoTags.appendChild(span);
+      });
+
+      produtoTitulo.textContent = produto.nome;
+      breadcrumbProduto.textContent = produto.nome;
+      produtoRef.textContent = produto.referencia;
+
+      const media = (produto.avaliacoes.reduce((acc, item) => acc + item.estrelas, 0) / produto.avaliacoes.length).toFixed(1);
+      produtoResumoAvaliacao.textContent = `${produto.avaliacoes.length} avaliações`;
+      produtoPrecoAntigo.textContent = formatarPreco(produto.precoAntigo);
+      produtoPrecoAtual.textContent = formatarPreco(produto.preco);
+      produtoPix.textContent = `ou ${formatarPreco(produto.preco * 0.95)} no Pix`;
+      notaMediaProduto.textContent = media;
+      totalAvaliacoesProduto.textContent = `Baseado em ${produto.avaliacoes.length} avaliações`;
+      estrelasResumoProduto.textContent = gerarEstrelas(Math.round(media));
+
+      produtoDescricao.textContent = produto.descricao;
+
+      produtoCaracteristicas.innerHTML = "";
+      produto.caracteristicas.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        produtoCaracteristicas.appendChild(li);
+      });
+
+      kitListaItens.innerHTML = "";
+      produto.itensKit.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "kit-item";
+        div.innerHTML = `
+          <img src="${produto.imagens[0]}" alt="${item.nome}">
+          <div>
+            <strong>${item.nome}</strong>
+            <span>${item.ref}</span>
+          </div>
+          <em>1 unidade</em>
+        `;
+        kitListaItens.appendChild(div);
+      });
+
+      miniaturasProduto.innerHTML = "";
+      produto.imagens.forEach((imagem, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `miniatura ${index === 0 ? "ativa" : ""}`;
+        btn.innerHTML = `<img src="${imagem}" alt="${produto.nome}">`;
+        btn.addEventListener("click", () => {
+          produtoImagemPrincipal.src = imagem;
+          document.querySelectorAll(".miniatura").forEach(m => m.classList.remove("ativa"));
+          btn.classList.add("ativa");
+        });
+        miniaturasProduto.appendChild(btn);
+      });
+
+      listaOpinioes.innerHTML = "";
+      produto.avaliacoes.forEach(avaliacao => {
+        const card = document.createElement("div");
+        card.className = "opiniao-card";
+        card.innerHTML = `
+          <div class="opiniao-topo">
+            <div>
+              <strong>${avaliacao.nome}</strong>
+              <span>${avaliacao.data}</span>
+            </div>
+          </div>
+          <div class="opiniao-estrelas">${gerarEstrelas(avaliacao.estrelas)}</div>
+          <div class="opiniao-texto">${avaliacao.texto}</div>
+        `;
+        listaOpinioes.appendChild(card);
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderizarCheckout() {
+      if (!listaCheckout || !subtotalCheckout || !totalCheckoutResumo) return;
+
+      listaCheckout.innerHTML = "";
+
+      if (carrinho.length === 0) {
+        listaCheckout.innerHTML = `<p style="color:#666;">Seu carrinho está vazio.</p>`;
+        subtotalCheckout.textContent = "R$ 0,00";
+        totalCheckoutResumo.textContent = "R$ 0,00";
+        recomendacoesGrid.innerHTML = "";
+        renderizarRecomendacoes();
+        return;
+      }
+
+      let subtotal = 0;
+
+      carrinho.forEach(item => {
+        subtotal += item.preco * item.quantidade;
+
+        const card = document.createElement("div");
+        card.className = "checkout-item";
+        card.innerHTML = `
+          <img src="${item.imagem}" alt="${item.nome}">
+          <div class="checkout-item-info">
+            <h4>${item.nome}</h4>
+            <span>Ref. ${item.id}</span>
+            <div class="checkout-qtd">
+              <button type="button" class="menos-checkout" data-id="${item.id}">-</button>
+              <span>${item.quantidade}</span>
+              <button type="button" class="mais-checkout" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <div class="checkout-item-price">${formatarPreco(item.preco * item.quantidade)}</div>
+        `;
+        listaCheckout.appendChild(card);
+      });
+
+      subtotalCheckout.textContent = formatarPreco(subtotal);
+      totalCheckoutResumo.textContent = formatarPreco(subtotal);
+
+      document.querySelectorAll(".menos-checkout").forEach(btn => {
+        btn.addEventListener("click", () => {
+          removerDoCarrinho(btn.dataset.id);
+        });
+      });
+
+      document.querySelectorAll(".mais-checkout").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const produto = produtos[btn.dataset.id];
+          adicionarAoCarrinho({
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            imagem: produto.imagens[0]
+          }, 1);
+          renderizarCheckout();
+        });
+      });
+
+      renderizarRecomendacoes();
+    }
+
+    function renderizarRecomendacoes() {
+      recomendacoesGrid.innerHTML = "";
+
+      Object.values(produtos).slice(0, 4).forEach(produto => {
+        const card = document.createElement("div");
+        card.className = "recomendacao-card";
+        card.innerHTML = `
+          <img src="${produto.imagens[0]}" alt="${produto.nome}">
+          <h4>${produto.nome}</h4>
+          <div class="preco-antigo">${formatarPreco(produto.precoAntigo)}</div>
+          <div class="preco-atual">${formatarPreco(produto.preco)}</div>
+          <div class="acoes-rec">
+            <button class="btn-rec ver" data-ver="${produto.id}">Ver produto</button>
+            <button class="btn-rec add" data-add="${produto.id}">Adicionar</button>
+          </div>
+        `;
+        recomendacoesGrid.appendChild(card);
+      });
+
+      document.querySelectorAll("[data-ver]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          mostrarPaginaProduto(btn.dataset.ver);
+        });
+      });
+
+      document.querySelectorAll("[data-add]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const produto = produtos[btn.dataset.add];
+          adicionarAoCarrinho({
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            imagem: produto.imagens[0]
+          }, 1);
+          renderizarCheckout();
+        });
+      });
+    }
+
+    function ativarBotoesComprar() {
+      document.querySelectorAll(".comprar-btn").forEach(botao => {
+        botao.onclick = () => {
+          mostrarPaginaProduto(botao.dataset.id);
+        };
+      });
+    }
+
+    function criarProdutoFirebase(item, id) {
+      const nome = item.nome || "Produto sem nome";
+      const preco = Number(item.preco || 0);
+      const precoAntigo = Number(item.precoAntigo || Math.max(preco * 3.5, preco));
+      const imagemPrincipal = item.imagem || item.imagemPrincipal || (Array.isArray(item.imagens) && item.imagens[0]) || "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop";
+      const imagens = Array.isArray(item.imagens) && item.imagens.length ? item.imagens : [imagemPrincipal];
+      const tags = Array.isArray(item.tags) && item.tags.length ? item.tags : ["Novidade", "Destaque"];
+      const caracteristicas = Array.isArray(item.caracteristicas) && item.caracteristicas.length ? item.caracteristicas : [
+        "Produto cadastrado no painel da Cruzinha Variedades",
+        "Atualizado automaticamente pelo Firebase",
+        "Disponível na loja oficial"
+      ];
+      const itensKit = Array.isArray(item.itensKit) && item.itensKit.length ? item.itensKit : [
+        { nome, ref: item.referencia || `Ref: CRZ${String(id).padStart(3, "0")}` }
+      ];
+      const avaliacoes = Array.isArray(item.avaliacoes) && item.avaliacoes.length ? item.avaliacoes : [
+        { nome: "Cliente", data: "22/03/2026", estrelas: 5, texto: "Produto disponível na loja oficial." }
+      ];
+
+      return {
+        id: String(id),
+        nome,
+        preco,
+        precoAntigo,
+        referencia: item.referencia || `REF: CRZ${String(id).padStart(3, "0")}`,
+        tags,
+        descricao: item.descricao || "Produto cadastrado no painel da Cruzinha Variedades.",
+        caracteristicas,
+        itensKit,
+        imagens,
+        avaliacoes
+      };
+    }
+
+    function renderizarProdutosFirebaseNoGrid(produtosFirebase) {
+      const grid = document.getElementById("produtosGrid");
+      if (!grid || !produtosFirebase.length) return;
+
+      grid.innerHTML = "";
+      produtos = {};
+
+      produtosFirebase.forEach((item, index) => {
+        const id = String(index + 1);
+        const produto = criarProdutoFirebase(item, id);
+        produtos[id] = produto;
+
+        const percentual = produto.precoAntigo > produto.preco
+          ? Math.max(5, Math.round((1 - (produto.preco / produto.precoAntigo)) * 100))
+          : 0;
+
+        grid.innerHTML += `
+          <article class="produto-card">
+            <span class="desconto">${percentual ? percentual + "%" : "Oferta"}</span>
+            <div class="produto-imagem">
+              <img src="${produto.imagens[0]}" alt="${produto.nome}">
+            </div>
+            <div class="selos">
+              ${produto.tags.map(tag => `<span class="selo">${tag}</span>`).join("")}
+            </div>
+            <p class="produto-nome">${produto.nome}</p>
+            <div class="produto-preco">${formatarPreco(produto.preco)}</div>
+            <button class="produto-botao comprar-btn" data-id="${id}">Comprar</button>
+          </article>
+        `;
+      });
+
+      ativarBotoesComprar();
+    }
+
+    async function carregarProdutosFirebase() {
+      try {
+        const querySnapshot = await getDocs(collection(db, "produtos"));
+        const lista = [];
+        querySnapshot.forEach(doc => lista.push(doc.data()));
+        if (lista.length) {
+          renderizarProdutosFirebaseNoGrid(lista);
+        } else {
+          ativarBotoesComprar();
+        }
+      } catch (erro) {
+        console.error("Erro ao carregar produtos do Firebase:", erro);
+        ativarBotoesComprar();
+      }
+    }
+
+    voltarProdutos.addEventListener("click", mostrarHome);
+
+    logoMobileHome.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarHome();
+    });
+
+    logoDesktopHome.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarHome();
+    });
+
+    menosQtd.addEventListener("click", () => {
+      if (quantidadeAtualProduto > 1) {
+        quantidadeAtualProduto--;
+        quantidadeProduto.textContent = quantidadeAtualProduto;
+      }
+    });
+
+    maisQtd.addEventListener("click", () => {
+      quantidadeAtualProduto++;
+      quantidadeProduto.textContent = quantidadeAtualProduto;
+    });
+
+    cepInput.addEventListener("input", (e) => {
+      let valor = e.target.value.replace(/\D/g, "");
+      if (valor.length > 5) {
+        valor = valor.replace(/^(\d{5})(\d)/, "$1-$2");
+      }
+      e.target.value = valor;
+    });
+
+    checkoutCep.addEventListener("input", (e) => {
+      let valor = e.target.value.replace(/\D/g, "");
+      if (valor.length > 5) {
+        valor = valor.replace(/^(\d{5})(\d)/, "$1-$2");
+      }
+      e.target.value = valor;
+    });
+
+    calcularFreteBtn.addEventListener("click", () => {
+      const cep = cepInput.value.replace(/\D/g, "");
+
+      if (cep.length !== 8) {
+        freteResultado.classList.remove("hidden");
+        freteResultado.innerHTML = "Informe um CEP válido com 8 números.";
+        return;
+      }
+
+      let frete = 21.90;
+      let prazo = "8 a 12 dias úteis";
+
+      if (cep.startsWith("64")) {
+        frete = 9.90;
+        prazo = "2 a 4 dias úteis";
+      } else if (cep.startsWith("65") || cep.startsWith("60") || cep.startsWith("61") || cep.startsWith("62") || cep.startsWith("63")) {
+        frete = 14.90;
+        prazo = "4 a 6 dias úteis";
+      } else if (cep.startsWith("01") || cep.startsWith("02") || cep.startsWith("03")) {
+        frete = 18.90;
+        prazo = "5 a 8 dias úteis";
+      }
+
+      freteResultado.classList.remove("hidden");
+      freteResultado.innerHTML = `
+        <strong>Entrega para o CEP informado:</strong><br>
+        Frete: ${formatarPreco(frete)}<br>
+        Prazo estimado: ${prazo}
+      `;
+    });
+
+    buscarFreteCheckout.addEventListener("click", () => {
+      const cep = checkoutCep.value.replace(/\D/g, "");
+
+      if (cep.length !== 8) {
+        freteCheckoutTexto.innerHTML = "Informe um CEP válido com 8 números.";
+        return;
+      }
+
+      let frete = 21.90;
+      let prazo = "8 a 12 dias úteis";
+
+      if (cep.startsWith("64")) {
+        frete = 9.90;
+        prazo = "2 a 4 dias úteis";
+      } else if (cep.startsWith("65") || cep.startsWith("60") || cep.startsWith("61") || cep.startsWith("62") || cep.startsWith("63")) {
+        frete = 14.90;
+        prazo = "4 a 6 dias úteis";
+      } else if (cep.startsWith("01") || cep.startsWith("02") || cep.startsWith("03")) {
+        frete = 18.90;
+        prazo = "5 a 8 dias úteis";
+      }
+
+      freteCheckoutTexto.innerHTML = `Frete: ${formatarPreco(frete)}<br>Prazo estimado: ${prazo}`;
+    });
+
+    adicionarCarrinhoDetalhe.addEventListener("click", () => {
+      if (!produtoAtual) return;
+
+      adicionarAoCarrinho({
+        id: produtoAtual.id,
+        nome: produtoAtual.nome,
+        preco: produtoAtual.preco,
+        imagem: produtoAtual.imagens[0]
+      }, quantidadeAtualProduto);
+
+      abrirPainelCarrinho();
+      overlay.classList.add("ativo");
+    });
+
+    comprarAgoraDetalhe.addEventListener("click", () => {
+      if (!produtoAtual) return;
+
+      adicionarAoCarrinho({
+        id: produtoAtual.id,
+        nome: produtoAtual.nome,
+        preco: produtoAtual.preco,
+        imagem: produtoAtual.imagens[0]
+      }, quantidadeAtualProduto);
+
+      mostrarCheckout();
+    });
+
+    botaoFinalizar.addEventListener("click", () => {
+      if (carrinho.length === 0) return;
+      mostrarCheckout();
+    });
+
+    escolherMaisProdutos.addEventListener("click", mostrarHome);
+    voltarCheckoutParaHome.addEventListener("click", mostrarHome);
+
+    continuarCheckout.addEventListener("click", () => {
+      if (carrinho.length === 0) return;
+      mostrarIdentificacao();
+    });
+
+    voltarIdentificacaoParaCheckout.addEventListener("click", mostrarCheckout);
+
+    abrirMinhaConta.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarMinhaContaPage();
+    });
+
+    abrirMeusPedidos.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarMeusPedidosPage();
+    });
+
+    abrirEntrarConta.addEventListener("click", () => {
+      mostrarIdentificacao();
+    });
+
+    abrirCadastroConta.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarMinhaContaPage();
+    });
+
+    btnContinuarIdentificacao.addEventListener("click", () => {
+      alert("Identificação registrada com sucesso. Próximo passo: endereço, envio e pagamento.");
+    });
+
+    document.querySelectorAll(".voltar-home-page").forEach(btn => {
+      btn.addEventListener("click", mostrarHome);
+    });
+
+    atualizarCarrinho();
+    carregarProdutosFirebase();
+  </script>
+  <script>
+const scroll = document.getElementById("categoriasScroll");
+const dots = document.querySelectorAll(".dot");
+
+if (scroll && dots.length) {
+  scroll.addEventListener("scroll", () => {
+    const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+
+    if (maxScroll <= 0) return;
+
+    const scrollPosition = scroll.scrollLeft;
+    const index = Math.round((scrollPosition / maxScroll) * (dots.length - 1));
+
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    if (dots[index]) {
+      dots[index].classList.add("active");
+    }
+  });
+}
+</script>
+  <script>
+const scroll = document.getElementById("categoriasScroll");
+const dots = document.querySelectorAll(".dot");
+
+if (scroll && dots.length) {
+  scroll.addEventListener("scroll", () => {
+    const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const scrollPosition = scroll.scrollLeft;
+    const index = Math.round((scrollPosition / maxScroll) * (dots.length - 1));
+
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    if (dots[index]) {
+      dots[index].classList.add("active");
+    }
+  });
+}
+</script>
+</body>
+</html>
