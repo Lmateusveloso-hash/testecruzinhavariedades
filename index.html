@@ -2513,6 +2513,75 @@
     display:flex;
   }
 }
+ .beneficios-container{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:10px;
+  scroll-snap-type: x mandatory;
+}
+
+.beneficios-container::-webkit-scrollbar{
+  display:none;
+}
+
+.beneficio-card{
+  min-width:280px;
+  flex-shrink:0;
+  scroll-snap-align:start;
+}
+ .whatsapp-btn, .instagram-btn{
+  position:fixed;
+  right:15px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  z-index:999;
+}
+
+/* WhatsApp */
+.whatsapp-btn{
+  bottom:90px; /* sobe mais */
+  background:#25D366;
+  color:white;
+}
+
+/* Instagram */
+.instagram-btn{
+  bottom:150px; /* sobe mais */
+  background: radial-gradient(circle at 30% 30%, #feda75, #d62976, #962fbf);
+  color:white;
+}
+ .categoria{
+  width:70px; /* menor */
+  text-align:center;
+}
+
+.categoria img{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+}
+
+.categoria p{
+  font-size:12px;
+  margin-top:5px;
+}
+ .categorias-container{
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  padding:10px;
+}
+
+.categorias-container::-webkit-scrollbar{
+  display:none;
+}
   </style>
 </head>
 <body>
@@ -4272,5 +4341,20 @@ if (scroll && dots.length) {
     <strong class="mobile-cart-count">0</strong>
   </button>
 </nav>
+<div class="beneficios-container">
+
+  <div class="beneficio-card">
+    <!-- Melhor preço -->
+  </div>
+
+  <div class="beneficio-card">
+    <!-- Descontos -->
+  </div>
+
+  <div class="beneficio-card">
+    <!-- Entrega -->
+  </div>
+
+</div>
 </body>
 </html>
