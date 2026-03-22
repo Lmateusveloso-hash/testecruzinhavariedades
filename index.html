@@ -2443,6 +2443,76 @@
   font-weight: 500;
   margin: 0;
 }
+ .mobile-bottom-bar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#fff;
+  border-top:1px solid #e8dede;
+  display:none;
+  justify-content:space-around;
+  align-items:center;
+  padding:10px 8px calc(10px + env(safe-area-inset-bottom));
+  z-index:3000;
+  box-shadow:0 -4px 18px rgba(0,0,0,.08);
+}
+
+.mobile-nav-item{
+  background:none;
+  border:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  color:#e76486;
+  font-size:12px;
+  font-weight:500;
+  min-width:58px;
+  position:relative;
+  cursor:pointer;
+}
+
+.mobile-nav-item i{
+  font-size:24px;
+  color:#444;
+}
+
+.mobile-nav-item span{
+  color:#e76486;
+  font-size:12px;
+  line-height:1;
+}
+
+.carrinho-mobile-btn{
+  position:relative;
+}
+
+.mobile-cart-count{
+  position:absolute;
+  top:-2px;
+  right:8px;
+  background:#ff6d8a;
+  color:#fff;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+@media (max-width: 768px){
+  body{
+    padding-bottom:90px;
+  }
+
+  .mobile-bottom-bar{
+    display:flex;
+  }
+}
   </style>
 </head>
 <body>
@@ -4175,5 +4245,32 @@ if (scroll && dots.length) {
   });
 }
 </script>
+<nav class="mobile-bottom-bar">
+  <button class="mobile-nav-item" onclick="abrirMenuMobile()">
+    <i class="fas fa-bars"></i>
+    <span>Menu</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="focarBuscaMobile()">
+    <i class="fas fa-search"></i>
+    <span>Buscar</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="abrirPedidosMobile()">
+    <i class="fas fa-box"></i>
+    <span>Pedidos</span>
+  </button>
+
+  <button class="mobile-nav-item" onclick="abrirContaMobile()">
+    <i class="fas fa-user"></i>
+    <span>Conta</span>
+  </button>
+
+  <button class="mobile-nav-item carrinho-mobile-btn" onclick="abrirCarrinhoMobile()">
+    <i class="fas fa-cart-shopping"></i>
+    <span>Carrinho</span>
+    <strong class="mobile-cart-count">0</strong>
+  </button>
+</nav>
 </body>
 </html>
